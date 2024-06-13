@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('carousels', function (Blueprint $table) {
             $table->id();
-            $table->string('alamat');
-            $table->text('alamat_rujukan');
-            $table->text('iframe');
-            $table->string('telepon');
-            $table->string('email');
-            $table->string('instagram');
-            $table->string('facebook');
+            $table->string('carousel_image');
+            $table->string('title');
+            $table->text('deskripsi');
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('carousels');
     }
 };

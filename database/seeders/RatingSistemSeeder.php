@@ -30,6 +30,8 @@ class RatingSistemSeeder extends Seeder
                 'user_id' => $user,
                 'rating' => rand(1,5),
                 'ulasan' => $faker->address,
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         }
 

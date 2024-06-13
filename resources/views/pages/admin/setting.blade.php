@@ -134,6 +134,27 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="/kritik-saran">
+          <i class="bi bi-star-fill"></i>
+          <span>Kritik Saran</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('carousel.index') }}">
+          <i class="bi bi-images"></i>
+          <span>Carousel</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/petugas">
+          <i class="bi bi-people-fill"></i>
+          <span>Petugas</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link" href="/setting">
             <i class="bi bi-gear-fill"></i>
             <span>Setting</span>
@@ -177,7 +198,7 @@
         <div class="col-xl-12">
           <div class="card">
             <div class="card-body">
-              <form action="/update-setting/{{ $setting->id }}" method="post">
+              <form action="/setting/{{ $setting->id }}" method="post">
                 @csrf
                 @method('put')
                 <div class="modal-content">
@@ -197,50 +218,25 @@
                                   <label class="form-label fw-bold">iFrame</label>
                                   <input type="text" name="iframe" id="iframe_inp" class="form-control @error('iframe') is-invalid @enderror shadow-none" value="{{ $setting->iframe }}">
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">No Telepon</label>
-                                    <div class="input-group mb-1">
-                                        <span class="input-group-text"> <i class="bi bi-telephone-fill"></i></span>
-                                        <input type="text" name="telepon_sekolah" value="{{ $setting->telepon_sekolah }}" class="form-control @error('telepon_sekolah') is-invalid @enderror shadow-none">
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Email</label>
-                                    <div class="input-group mb-1">
-                                        <span class="input-group-text"> <i class="bi bi-envelope-fill"></i></span>
-                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror shadow-none" value="{{ $setting->email }}">
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold">Media Sosial Sekolah</label>
+                                    <label class="form-label fw-bold">Media Sosial</label>
                                     <div class="input-group mb-1">
-                                        <span class="input-group-text"> <i class="bi bi-instagram me-1"></i></span>
-                                        <input type="text" name="instagram_sekolah" class="form-control @error('instagram_sekolah') is-invalid @enderror shadow-none" value="{{ $setting->instagram_sekolah }}" placeholder="link rujukan media sosial">
+                                        <span class="input-group-text"> <i class="bi bi-whatsapp"></i></span>
+                                        <input type="text" name="telepon" value="{{ $setting->telepon }}" class="form-control @error('telepon') is-invalid @enderror shadow-none">
                                     </div>
                                     <div class="input-group mb-1">
-                                        <span class="input-group-text"> <i class="bi bi-youtube me-1"></i></span>
-                                        <input type="text" name="youtube_sekolah" class="form-control @error('youtube_sekolah') is-invalid @enderror shadow-none" value="{{ $setting->youtube_sekolah }}" placeholder="link rujukan media sosial">
+                                      <span class="input-group-text"> <i class="bi bi-envelope-fill"></i></span>
+                                      <input type="email" name="email" class="form-control @error('email') is-invalid @enderror shadow-none" value="{{ $setting->email }}">
+                                    </div>
+                                    <div class="input-group mb-1">
+                                        <span class="input-group-text"> <i class="bi bi-instagram me-1"></i></span>
+                                        <input type="text" name="instagram" class="form-control @error('instagram') is-invalid @enderror shadow-none" value="{{ $setting->instagram }}" placeholder="link rujukan media sosial">
                                     </div>
                                     <div class="input-group mb-1">
                                         <span class="input-group-text"> <i class="bi bi-facebook me-1"></i></span>
-                                        <input type="text" name="facebook_sekolah" class="form-control @error('facebook_sekolah') is-invalid @enderror shadow-none" value="{{ $setting->facebook_sekolah }}" placeholder="link rujukan media sosial">
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Media Sosial Kepala Sekolah</label>
-                                    <div class="input-group mb-1">
-                                        <span class="input-group-text"> <i class="bi bi-instagram me-1"></i></span>
-                                        <input type="text" name="instagram_kepsek" class="form-control @error('instagram_kepsek') is-invalid @enderror shadow-none" value="{{ $setting->instagram_kepsek }}" placeholder="link rujukan media sosial">
-                                    </div>
-                                    <div class="input-group mb-1">
-                                        <span class="input-group-text"> <i class="bi bi-twitter me-1"></i></span>
-                                        <input type="text" name="twitter_kepsek" class="form-control @error('twitter_kepsek') is-invalid @enderror shadow-none" value="{{ $setting->twitter_kepsek }}" placeholder="link rujukan media sosial">
-                                    </div>
-                                    <div class="input-group mb-1">
-                                        <span class="input-group-text"> <i class="bi bi-facebook me-1"></i></span>
-                                        <input type="text" name="facebook_kepsek" class="form-control @error('facebook_kepsek') is-invalid @enderror shadow-none" value="{{ $setting->facebook_kepsek }}" placeholder="link rujukan media sosial">
+                                        <input type="text" name="facebook" class="form-control @error('facebook') is-invalid @enderror shadow-none" value="{{ $setting->facebook }}" placeholder="link rujukan media sosial">
                                     </div>
                                 </div>
                             </div>

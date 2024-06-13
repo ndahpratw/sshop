@@ -100,4 +100,15 @@ class PesananController extends Controller
 
         return redirect('/pesanan#selesai')->with('success', 'Status Pesanan Berhasil Diperbarui !');
     }
+
+    
+    public function payment_cancel($id) {
+        $pesanan = Pembelian::find($id);
+        $pesanan->update([
+            'status_pesanan' => 'dibatalkan',
+        ]);
+
+        return redirect('/pesanan#dibatalkan')->with('success', 'Status Pesanan Berhasil Diperbarui !');
+    }
+
 }

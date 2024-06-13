@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
 use App\Models\RatingProduk;
+use App\Models\RatingSistem;
 use Illuminate\Http\Request;
 
 class RatingController extends Controller
@@ -30,5 +31,37 @@ class RatingController extends Controller
         }
 
     }
+
+    public function store_sistem(Request $request) {
+        $rating = new RatingSistem();
+        $rating->user_id = $request->user_id;
+        $rating->rating = $request->rating;
+        $rating->ulasan = $request->testimoni;
+
+        if ($rating->save()) {
+            return redirect('/rating-sistem')->with('success', 'Terimakasih atas kritik dan sarannya !');
+        } else {
+            return redirect('/rating-sistem')->with('error', 'Gagal menyimpan kritik dan saran !');
+        }
+
+    }
+
     // ------------------------------------------------------------------------- admin
+    public function index() {
+        $no = 1;
+        $title = 'Kritik Saran';
+        $ulasan = RatingSistem::orderBy('created_at')->get();
+
+        return view('pages.admin.kritik-saran', compact('no', 'title', 'ulasan'));
+    }
+
+    public function destroy($id) {   
+        $ulasan = RatingSistem::find($id);
+
+        if ($ulasan->delete()){
+            return redirect()->back()->with('success', 'Data berhasil dihapus!');
+        } else {
+            return redirect()->back()->with('error', 'Gagal menghapus data');
+        } 
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AliranBarangController;
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\LoginController;
@@ -52,6 +53,7 @@ Route::group(["middleware" => ["auth", 'cekrole:user']], function () {
     // ------------- pesanan
     Route::get('/pesanan', [UserController::class, 'view_pesanan']);
     Route::get('/pesanan-terima/{id}', [PesananController::class, 'edit_data_terima']);
+    Route::get('/cancel-payment/{id}', [PesananController::class, 'payment_cancel']);
     
     // -------------  produk
     Route::get('/detail-product/{id}', [PenjualanController::class, 'detail_product']);
@@ -65,6 +67,9 @@ Route::group(["middleware" => ["auth", 'cekrole:user']], function () {
     // ------------- rating
     Route::get('/rating/{id}', [RatingController::class, 'create']);
     Route::post('/rating', [RatingController::class, 'store']);
+    
+    Route::get('/rating-sistem', [UserController::class, 'View_rating']);
+    Route::post('/rating-sistem', [RatingController::class, 'store_sistem']);
 });
 
 
@@ -84,6 +89,9 @@ Route::group(["middleware" => ["auth", 'cekrole:admin']], function () {
     
     // ------------- Data Barang
     Route::resource('/data-barang', AliranBarangController::class)->names('inventaris');
+
+    // ------------- Data Barang
+    Route::resource('/carousel', CarouselController::class)->names('carousel');
     
     // ------------- penjualan
     Route::get('/penjualan', [PesananController::class, 'index']);
@@ -91,6 +99,12 @@ Route::group(["middleware" => ["auth", 'cekrole:admin']], function () {
     Route::get('/penjualan-kemas/{id}', [PesananController::class, 'edit_data_kemas']);
     Route::get('/penjualan-kirim/{id}', [PesananController::class, 'edit_data_kirim']);
     
+    // ------------- rating-sistem
+    Route::get('/kritik-saran', [RatingController::class, 'index']);
+    Route::delete('/kritik-saran/{id}', [RatingController::class, 'destroy']);
+
+    
     // ------------- setting
     Route::get('/setting', [SettingController::class, 'index']);
+    Route::put('/setting/{id}', [SettingController::class, 'update']);
 });

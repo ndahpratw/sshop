@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carousel;
 use App\Models\KategoriProduk;
 use App\Models\Pabrik;
 use App\Models\Pembelian;
 use App\Models\Produk;
 use App\Models\RatingSistem;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +32,10 @@ class UserController extends Controller
                             ->get();
         $produk_ids = $produk_terlaris->pluck('produk_id');
         $produk = Produk::whereIn('id', $produk_ids)->get();
-        return view('index', compact('brand', 'kategori', 'ulasan_sistem', 'produk')); 
+        $setting = Setting::where('id', 1)->first();
+        $carousel = Carousel::where('id', 1)->first();
+        $carousels = Carousel::where('id','!=', 1)->get();
+        return view('index', compact('brand', 'kategori', 'ulasan_sistem', 'produk', 'setting', 'carousel', 'carousels')); 
     }
 
     // PROFILE
@@ -139,7 +144,7 @@ class UserController extends Controller
 
     // PESANAN
     public function view_pesanan() {
-        $semua_pesanan = Pembelian::orderby('created_at')->get();
+        $semua_pesanan = Pembelian::where('user_id', auth()->user()->id)->orderby('created_at')->get();
         $belum_bayar = Pembelian::where('user_id', auth()->user()->id)->where('status_pesanan', 'menunggu pembayaran')->orderby('created_at')->get();
         $dikemas = Pembelian::where('user_id', auth()->user()->id)->where('status_pesanan', 'dikemas')->orderby('created_at')->get();
         $dikirim = Pembelian::where('user_id', auth()->user()->id)->where('status_pesanan', 'dikirim')->orderby('created_at')->get();
@@ -153,8 +158,9 @@ class UserController extends Controller
         return view('pages.user.pesanan-payment', compact('pesanan'));
     }
 
-    // SELLER
-    public function view_toko() {
-        return view('pages.user.toko');
+    // RATING SISTEM
+    public function view_rating() {
+        return view('pages.user.rating-sistem');
     }
+
 }

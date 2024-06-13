@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             PembelianSeeder::class,
             RatingProdukSeeder::class,
             RatingSistemSeeder::class,
+            SettingSeeder::class,
+            CarouselSeeder::class
         ]);
     }
 }

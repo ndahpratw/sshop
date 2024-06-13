@@ -134,6 +134,27 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="/kritik-saran">
+          <i class="bi bi-star-fill"></i>
+          <span>Kritik Saran</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('carousel.index') }}">
+          <i class="bi bi-images"></i>
+          <span>Carousel</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/petugas">
+          <i class="bi bi-people-fill"></i>
+          <span>Petugas</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link collapsed" href="/setting">
             <i class="bi bi-gear-fill"></i>
             <span>Setting</span>
@@ -171,7 +192,7 @@
                   <i class="bi bi-currency-dollar"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>145</h6>
+                  <h6>{{ number_format($pemasukan, 0, ',', '.') }}</h6>
                 </div>
               </div>
             </div>
@@ -200,7 +221,7 @@
         </div><!-- End Revenue Card -->
 
         <!-- Customers Card -->
-        <div class="col-xxl-3 col-xl-6">
+        <div class="col-xxl-3 col-md-6">
 
           <div class="card info-card customers-card">
 
@@ -222,7 +243,7 @@
         </div><!-- End Customers Card -->
 
         <!-- Customers Card -->
-        <div class="col-xxl-3 col-xl-6">
+        <div class="col-xxl-3 col-md-6">
 
           <div class="card info-card customers-card">
 
@@ -234,7 +255,7 @@
                   <i class="bi bi-star-fill"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>1244</h6>
+                  <h6>{{ number_format($rating, 1) }}</h6>
                 </div>
               </div>
 

@@ -134,6 +134,27 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="/kritik-saran">
+          <i class="bi bi-star-fill"></i>
+          <span>Kritik Saran</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('carousel.index') }}">
+          <i class="bi bi-images"></i>
+          <span>Carousel</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/petugas">
+          <i class="bi bi-people-fill"></i>
+          <span>Petugas</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
         <a class="nav-link collapsed" href="/setting">
             <i class="bi bi-gear-fill"></i>
             <span>Setting</span>

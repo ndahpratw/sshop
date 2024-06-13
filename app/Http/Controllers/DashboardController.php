@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Pabrik;
 use App\Models\KategoriProduk;
+use App\Models\Pembelian;
 use App\Models\Produk;
+use App\Models\RatingSistem;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +17,8 @@ class DashboardController extends Controller
         $title = 'Dashboard';
         $jumlah_brand = Pabrik::all()->count();
         $admin = User::where('role', 'admin')->count();
+        $pemasukan = Pembelian::where('status_pesanan', '!=', 'dibatalkan')->where('status_pembayaran', '!=', 'belum bayar')->sum('total');
+        $rating = RatingSistem::avg('rating');
 
         // informasi kategori
         $kategori = KategoriProduk::select('kategori_produks.id', 'kategori_produks.nama_kategori', DB::raw('COUNT(produks.id) as jumlah_produk'))
@@ -49,7 +53,7 @@ class DashboardController extends Controller
         }
 
         return view('pages.admin.dashboard', compact(
-            'title', 'jumlah_brand', 'admin',
+            'title', 'jumlah_brand', 'admin', 'rating', 'pemasukan',
             'data_kategori', 'jumlah_data',
             'data_brand', 'jumlah_data_brand',
         ));

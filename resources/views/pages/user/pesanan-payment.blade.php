@@ -104,6 +104,13 @@
           <span>Pesanan Saya</span>
         </a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/rating-sistem">
+          <i class="bi bi-star-fill"></i>
+          <span>Kritik Saran</span>
+        </a>
+      </li>
       
     </ul>
   </aside><!-- End Sidebar-->

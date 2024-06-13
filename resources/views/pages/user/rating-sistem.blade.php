@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pesanan Saya - Rating</title>
+  <title>Kritik dan Saran</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -89,7 +89,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             @if ( auth()->user()->profile != null)
-                <img src="{{ asset('assets/img/user/'.auth()->user()->profile) }}" alt="Profile" class="rounded-circle">
+                <img src="{{ asset('assets/img/user/'.$user->profile) }}" alt="Profile" class="rounded-circle">
             @else
                 <img src="{{  asset('assets/img/logo/icon-profile.jpeg')  }}" alt="Profile" class="rounded-circle">
             @endif
@@ -131,148 +131,67 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/pesanan">
+        <a class="nav-link collapsed" href="/pesanan">
           <i class="bi bi-receipt"></i>
           <span>Pesanan Saya</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/rating-sistem">
+        <a class="nav-link" href="/rating-sistem">
           <i class="bi bi-star-fill"></i>
           <span>Kritik Saran</span>
         </a>
       </li>
-      
+        
     </ul>
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Pesanan</h1>
+      <h1>Kritik dan Saran</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item"><a href="/pesanan">Pesanan Saya</a></li>
-          <li class="breadcrumb-item active">Rating</li>
+          <li class="breadcrumb-item active">Kritik dan Saran</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section profile">
-      <div class="row">
-        <div class="col-xl-12">
-          @if (session()->has('success'))
+      <div class="row justify-content-center ">
+        <div class="col-lg-6">
+            @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <i class="bi bi-check-circle me-1"></i>
                 {{ session('success') }}
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-          @elseif (session()->has('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <i class="bi bi-exclamation-octagon me-1"></i>
-                {{ session('error') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          @endif
-        </div>
-
-        <div class="col-xl-12">
-
-          <div class="card">
-            <div class="card-body pt-3">
-              <ul class="nav nav-tabs nav-tabs-bordered justify-content-between">
-
-                <li class="nav-item">
-                  <a class="nav-link" href="/pesanan#semua-pesanan">Semua</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link" href="/pesanan#belum-bayar">Belum Bayar</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link" href="/pesanan#sedang-dikemas">Sedang Dikemas</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link" href="/pesanan#dikirim">Dikirim</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link" href="/pesanan#selesai">Selesai</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link" href="/pesanan#dibatalkan">Dibatalkan</a>
-                </li>
-              </ul>
-
-              <div class="tab-content pt-2">
-
-                <div class="tab-pane fade show active " id="semua-pesanan">
-                  <div class="row">
-                      <div class="col-md-6 my-3">
-                        <div class="card">
-                          <div class="card-body my-4">
-                            <div class="d-flex justify-content-between align-item-center">
-                              <p style="color: #254336">{{ $pesanan->produk->brand->nama_pabrik }}</p>
-                              <p style="color: red">{{ $pesanan->status_pesanan }}</p>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-3">
-                                <img src="{{ asset('assets/img/produk/'.$pesanan->produk->foto_produk) }}" alt="{{ $pesanan->produk->foto_produk }}" class="img-fluid">
-                              </div>
-                              <div class="col-md-9">
-                                <div class="d-flex justify-content-between">
-                                  <b>
-                                    {{ $pesanan->produk->nama_produk }}
-                                  </b>
-                                  
-                                    x {{ $pesanan->jumlah }}
-                                </div>
-                                <p class="d-flex justify-content-end"> 
-                                  {{ $pesanan->harga }} 
-                                  <hr>
-                                  <div class="d-flex justify-content-between">
-                                    <p> Total Pesanan : </p>
-                                    <p> {{ $pesanan->total }} </p>
-                                  </div>
-                                </p>
-                              </div>
-                            <hr>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6 my-3">
-                        <div class="card">
-                          <div class="card-body">
-                            <form action="/rating" method="post">
-                              @csrf
-                              <input type="hidden" value="{{ $pesanan->produk->id }}" name="produk_id" class="btn btn-outline-dark w-100 shadow-none col-md-6 mb-3">
-                              <div class="rating my-2">
-                                  <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
-                                  <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                                  <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                                  <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                                  <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-                              </div>
-                              <textarea rows="4" name="testimoni" class="form-control shadow-none col-md-6 mb-3" required></textarea>
-                              <input type="submit" value="kirim" class="btn btn-outline-dark w-100 shadow-none col-md-6 mb-3">
-                          </form>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
+            @elseif (session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-octagon me-1"></i>
+                    {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-              </div><!-- End Bordered Tabs -->
-
+            @endif
+            <div class="card">
+                <div class="card-body">
+                    <form action="/rating-sistem" method="post">
+                        @csrf
+                        <input type="hidden" value="{{ auth()->user()->id }}" name="user_id" class="btn btn-outline-dark w-100 shadow-none col-md-6 mb-3">
+                        <div class="rating my-2">
+                            <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                            <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                            <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                            <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                            <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                        </div>
+                        <textarea rows="4" name="testimoni" class="form-control shadow-none col-md-6 mb-3" required></textarea>
+                        <input type="submit" value="kirim" class="btn btn-outline-warning text-secondary w-100 shadow-none col-md-6 mb-3">
+                    </form>
+                </div>
             </div>
-          </div>
-
         </div>
       </div>
     </section>
@@ -331,6 +250,9 @@
 
     });
   </script>
+    
+    
+
 </body>
 
 </html>

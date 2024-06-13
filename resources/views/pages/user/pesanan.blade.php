@@ -104,6 +104,13 @@
           <span>Pesanan Saya</span>
         </a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/rating-sistem">
+          <i class="bi bi-star-fill"></i>
+          <span>Kritik Saran</span>
+        </a>
+      </li>
       
     </ul>
   </aside><!-- End Sidebar-->
@@ -227,7 +234,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Batal</button>
-                                                <a href="/can" class="btn btn-success text-white shadow-none">Yakin</a>
+                                                <a href="/cancel-payment/{{ $item->id }}" class="btn btn-success text-white shadow-none">Yakin</a>
                                             </div>
                                         </div>
                                     </div>
@@ -312,7 +319,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Batal</button>
-                                                <a href="/can" class="btn btn-success text-white shadow-none">Yakin</a>
+                                                <a href="/cancel-payment/{{ $item->id }}" class="btn btn-success text-white shadow-none">Yakin</a>
                                             </div>
                                         </div>
                                     </div>

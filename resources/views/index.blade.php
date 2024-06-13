@@ -96,54 +96,38 @@
           <div class="row justify-content-center gy-6">
 
             <div class="col-lg-5 col-md-8">
-              <img src="{{ asset('assets/landing/img/hero-carousel/hero-carousel-1.svg') }}" alt="" class="img-fluid img">
+              <img src="{{ asset('assets/img/carousel/'.$carousel->carousel_image) }}" alt="{{ $carousel->carousel_image }}" class="img-fluid img">
             </div>
 
             <div class="col-lg-9 text-center">
-              <h2>Welcome to HeroBiz</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              <a href="#featured-services" class="btn-get-started scrollto ">Get Started</a>
+              <h2>{{ $carousel->title }}</h2>
+              <p> {{ $carousel->deskripsi }} </p>
+              <a href="/login" class="btn-get-started scrollto ">Get Started</a>
             </div>
 
           </div>
         </div>
       </div><!-- End Carousel Item -->
 
+      @foreach ($carousels as $item)
       <div class="carousel-item">
         <div class="container">
           <div class="row justify-content-center gy-6">
 
             <div class="col-lg-5 col-md-8">
-              <img src="{{ asset('assets/landing/img/hero-carousel/hero-carousel-2.svg') }}" alt="" class="img-fluid img">
+              <img src="{{ asset('assets/img/carousel/'.$item->carousel_image) }}" alt="{{ $item->carousel_image }}" class="img-fluid img">
             </div>
 
             <div class="col-lg-9 text-center">
-              <h2>At vero eos et accusamus</h2>
-              <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut.</p>
-              <a href="#featured-services" class="btn-get-started scrollto ">Get Started</a>
+              <h2>{{ $item->title }}</h2>
+              <p> {{ $item->deskripsi }} </p>
+              <a href="/login" class="btn-get-started scrollto ">Get Started</a>
             </div>
 
           </div>
         </div>
       </div><!-- End Carousel Item -->
-
-      <div class="carousel-item">
-        <div class="container">
-          <div class="row justify-content-center gy-6">
-
-            <div class="col-lg-5 col-md-8">
-              <img src="{{ asset('assets/landing/img/hero-carousel/hero-carousel-3.svg') }}" alt="" class="img-fluid img">
-            </div>
-
-            <div class="col-lg-9 text-center">
-              <h2>Temporibus autem quibusdam</h2>
-              <p>Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt omnis iste natus error sit voluptatem accusantium.</p>
-              <a href="#featured-services" class="btn-get-started scrollto ">Get Started</a>
-            </div>
-
-          </div>
-        </div>
-      </div><!-- End Carousel Item -->
+      @endforeach
     </div>
 
     <a class="carousel-control-prev" href="#hero" role="button" data-bs-slide="prev">
@@ -302,14 +286,9 @@
 
         <div class="section-header">
           <h2>Contact Us</h2>
-          <p>Ea vitae aspernatur deserunt voluptatem impedit deserunt magnam occaecati dssumenda quas ut ad dolores adipisci aliquam.</p>
         </div>
 
       </div>
-
-      <div class="map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
-      </div><!-- End Google Maps -->
 
       <div class="container">
 
@@ -318,14 +297,14 @@
           <div class="col-lg-4">
 
             <div class="info">
-              <h3>Get in touch</h3>
-              <p>Et id eius voluptates atque nihil voluptatem enim in tempore minima sit ad mollitia commodi minus.</p>
 
               <div class="info-item d-flex">
                 <i class="bi bi-geo-alt flex-shrink-0"></i>
                 <div>
                   <h4>Location:</h4>
-                  <p>A108 Adam Street, New York, NY 535022</p>
+                  <a href="{{ $setting->alamat_rujukan }}" target="_blank">
+                    <p>{{ $setting->alamat }}</p>
+                  </a>
                 </div>
               </div><!-- End Info Item -->
 
@@ -333,15 +312,39 @@
                 <i class="bi bi-envelope flex-shrink-0"></i>
                 <div>
                   <h4>Email:</h4>
-                  <p>info@example.com</p>
+                  <a href="mailto:{{ $setting->email }}" target="_blank">
+                    <p>{{ $setting->email }}</p>
+                  </a>
                 </div>
               </div><!-- End Info Item -->
 
               <div class="info-item d-flex">
-                <i class="bi bi-phone flex-shrink-0"></i>
+                <i class="bi bi-whatsapp flex-shrink-0"></i>
                 <div>
-                  <h4>Call:</h4>
-                  <p>+1 5589 55488 55</p>
+                  <h4>WhatsApp:</h4>
+                  <a href="https://wa.me/{{ $setting->telepon }}" target="_blank">
+                    <p>{{ $setting->telepon }}</p>
+                  </a>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-instagram flex-shrink-0"></i>
+                <div>
+                  <h4>Instagram:</h4>
+                  <a href="https://www.instagram.com/{{ $setting->instagram }}" target="_blank">
+                    <p>{{ $setting->instagram }}</p>
+                  </a>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-facebook flex-shrink-0"></i>
+                <div>
+                  <h4>Facebook:</h4>
+                  <a href="https://facebook.com/{{ $setting->facebook }}" target="_blank">
+                    <p>{{ $setting->facebook }}</p>
+                  </a>
                 </div>
               </div><!-- End Info Item -->
 
@@ -350,29 +353,10 @@
           </div>
 
           <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-          </div><!-- End Contact Form -->
+            <div class="map">
+              <iframe src="{{ $setting->iframe }}" frameborder="0" allowfullscreen></iframe>
+            </div><!-- End Google Maps -->
+          </div>
 
         </div>
 
@@ -398,14 +382,6 @@
             <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
           </div>
-        </div>
-
-        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-          <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
         </div>
 
       </div>

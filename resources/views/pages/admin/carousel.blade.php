@@ -104,12 +104,12 @@
         </a>
         <ul id="profile" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('pabrik.index') }}">
+            <a href="{{ route('pabrik.index') }}" class="nav-link active">
               <i class="bi bi-circle"></i><span>Informasi Pabrik</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('kategori.index') }}" class="nav-link active">
+            <a href="{{ route('kategori.index') }}">
               <i class="bi bi-circle"></i><span>Kategori Produk</span>
             </a>
           </li>
@@ -153,7 +153,7 @@
           <span>Petugas</span>
         </a>
       </li>
-
+      
       <li class="nav-item">
         <a class="nav-link collapsed" href="/setting">
             <i class="bi bi-gear-fill"></i>
@@ -207,46 +207,77 @@
             <div class="card-body pt-3">
 
               <div class="d-flex align-items-center justify-content-between m-3">
-                <h5 class="card-title">Total : {{ count($kategori) }} Kategori</h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-kategori">
+                <h5 class="card-title">Total : {{ count($carousel) }} Carousel Landing Page</h5>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-pabrik">
                   <i class="bi bi-plus-square"></i> Tambah
                 </button>
               </div>
 
-              <div class="row">
-                @foreach ($kategori as $item)
-                  <div class="col-md-4">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                          {{-- <div> --}}
-                            <h5 class="card-title">{{ ucwords($item->nama_kategori) }}</h5>
-                            {{-- <p> {{ $item->produk->count() }} data </p>
-                          </div> --}}
-                          <div>
-                            {{-- <a href="{{ route('kategori.edit', $item->id) }}" class="btn btn-primary btn-sm"><i class="ri-pencil-fill"></i></a> --}}
+              <div class="table-responsive">
+                <table class="table datatable" id="pabrik">
+                  <thead>
+                    <tr class="text-center">
+                      <th> No.  </th>
+                      <th> Gambar  </th>
+                      <th> Judul </th>
+                      <th> Deksripsi  </th>
+                      <th> Aksi  </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($carousel as $item)
+                        <tr>
+                          <td> {{ $no++ }} </td>
+                          <td> 
+                            <img src="{{ asset('assets/img/carousel/'.$item->carousel_image) }}" alt="{{ $item->carousel_image }}" style="width: 150px; height: 150px; border:1px solid black">
+                          </td>
+                          <td> {{ $item->title }} </td>
+                          <td> {{ $item->deskripsi }} </td>
+                          <td>
+                            {{-- <a href="{{ route('pabrik.edit', $item->id) }}" class="btn btn-primary btn-sm"><i class="ri-pencil-fill"></i></a> --}}
                             <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#edit<?php echo $item->id?>"><i class="ri-pencil-fill"></i></button>
                             <div class="modal fade" id="edit<?php echo $item->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
-                                <form action="{{ route('kategori.update', $item->id) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('carousel.update', $item->id) }}" method="post" enctype="multipart/form-data">
                                   @csrf
                                   @method('put')
                                   <div class="modal-content">
                                   <div class="modal-header">
-                                      <h5 class="modal-title">Edit Data Brand</h5>
+                                      <h5 class="modal-title">Edit Carousel</h5>
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
                                   <div class="modal-body">
                                     <div class="row">
                                       <div>
-                                        <label for="nama_kategori" class="form-label">Brand</label>
-                                        <input type="text" name="nama_kategori" class="form-control @error('nama_kategori') is-invalid @enderror shadow-none" id="nama_kategori" value="{{ $item->nama_kategori }}">
-                                        @error('nama_kategori') 
+                                        <label for="judul" class="form-label">Judul</label>
+                                        <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror shadow-none" id="judul" value="{{ $item->title }}">
+                                        @error('judul') 
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div> 
                                         @enderror
-                                      </div>            
+                                      </div>
+                                      <div class="col-md-3" style="margin-top: 10px">
+                                        <img id="logo" src="{{ asset('assets/img/carousel/'.$item->carousel_image) }}" alt="{{ $item->carousel_image }}" style="width: 100px; border:1px solid black">
+                                      </div>
+                                      <div class="col-md-9" style="margin-top: 10px">
+                                        <label id="gambar" class="form-label">Gambar | 3 x 3</label>
+                                        <input type="file"  id="logoInput" name="gambar" class="form-control @error('gambar') is-invalid @enderror shadow-none" id="gambar" value="{{ $item->gambar }}" accept="image/*">
+                                        @error('gambar') 
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div> 
+                                        @enderror
+                                      </div>  
+                                      <div class="mt-2">
+                                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                                        <input type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror shadow-none" id="deskripsi" value="{{ $item->deskripsi }}">
+                                        @error('deskripsi') 
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div> 
+                                        @enderror
+                                      </div>           
                                     </div>
                                   </div>
                                   <div class="modal-footer">
@@ -263,15 +294,15 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                          <h5 class="modal-title text-center">Konfirmasi Hapus Brand Dari Katalog</h5>
+                                          <h5 class="modal-title text-center">Konfirmasi Hapus Carousel</h5>
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-center">
-                                            <p style="color: black">Apakah anda yakin untuk menghapus <br> <b>{{ $item->nama_kategori }}</b> beserta data terkait dari katalog ?</p>
+                                            <p style="color: black">Apakah anda yakin untuk menghapus data <br> <b>{{ $item->title}}</b>?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-dismiss="modal">Tidak</button>
-                                            <form action="{{ route('kategori.destroy', $item->id) }}" method="POST" style="display: inline;">
+                                            <form action="{{ route('carousel.destroy', $item->id) }}" method="POST" style="display: inline;">
                                                 @method('delete')
                                                 @csrf
                                                 <input type="submit" value="Hapus" class="btn btn-danger btn-sm shadow-none">
@@ -280,14 +311,12 @@
                                     </div>
                                 </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                @endforeach
+                          </td>
+                        </tr>
+                    @endforeach
+                  </tbody>
+                </table>
               </div>
-
             </div>
           </div>
 
@@ -295,26 +324,45 @@
       </div>
     </section>
 
-    <div class="modal fade" id="tambah-kategori" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Modal Tambah Data -->
+    <div class="modal fade" id="tambah-pabrik" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
-      <form action="{{ route('kategori.store') }}" method="post" enctype="multipart/form-data">
+      <form action="{{ route('carousel.store') }}" method="post" enctype="multipart/form-data">
           @csrf
           <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title">Tambah Kategori Baru</h5>
+              <h5 class="modal-title">Tambah Data Brand</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="row">
               <div>
-                <label for="nama_kategori" class="form-label">Kategori</label>
-                <input type="text" name="nama_kategori" class="form-control @error('nama_kategori') is-invalid @enderror shadow-none" id="nama_kategori" value="{{ old('nama_kategori') }}">
-                @error('nama_kategori') 
+                <label for="judul" class="form-label">Judul</label>
+                <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror shadow-none" id="judul" value="{{ old('judul') }}">
+                @error('judul') 
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div> 
                 @enderror
-              </div>          
+              </div>
+              <div style="margin-top: 5px">
+                <label id="gambar" class="form-label">Gambar Carousel</label>
+                <input type="file" name="gambar" class="form-control @error('gambar') is-invalid @enderror shadow-none" id="gambar" value="{{ old('gambar') }}" accept="image/*">
+                @error('gambar') 
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div> 
+                @enderror
+              </div>             
+            </div>
+            <div style="margin-top: 5px">
+              <label for="deskripsi" class="form-label">Brand</label>
+              <input type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror shadow-none" id="deskripsi" value="{{ old('deskripsi') }}">
+              @error('deskripsi') 
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div> 
+              @enderror
             </div>
           </div>
           <div class="modal-footer">
@@ -354,8 +402,36 @@
   <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
 
+  <!-- DataTables -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+  <script>
+  $(document).ready(function() {
+      $('.datatable').DataTable();
+  });
+  </script>
+
+  <script>
+  $(document).ready(function() {
+      $('#pabrik').DataTable({
+      "searching": true // Aktifkan fitur pencarian
+      });
+  });
+  </script>
+
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main_lte.js') }}"></script>
+
+  <script>
+    document.getElementById('logoInput').addEventListener('change', function(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('logo');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+    </script>
   
 </body>
 
