@@ -20,9 +20,9 @@ class RatingProdukSeeder extends Seeder
             DB::table('rating_produks')->insert([
                 'id' => Str::uuid(),
                 'pembelian_id' => $pembelian->id,
-                'user_id' => $pembelian->user_id, // Menggunakan user_id dari tabel pembelians
-                'rating' => rand(1, 5),
-                'ulasan' => 'Ulasan contoh',
+                'user_id' => $pembelian->user_id,
+                'rating' => rand(4, 5),
+                'ulasan' => 'Produk cocok di jenis kulit saya',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

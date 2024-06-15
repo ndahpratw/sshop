@@ -19,7 +19,7 @@ class PembelianSeeder extends Seeder
             $jumlah = rand(1, 5);
             $total = $harga * $jumlah;
 
-            $user = DB::table('users')->inRandomOrder()->first()->id;
+            $user = DB::table('users')->where('name', '!=', 'admin')->inRandomOrder()->first()->id;
             $produk = DB::table('produks')->inRandomOrder()->first()->id;
 
             DB::table('pembelians')->insert([

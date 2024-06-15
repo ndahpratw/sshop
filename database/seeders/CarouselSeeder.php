@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Carousel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,22 +15,20 @@ class CarouselSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
 
-        $carousels = [];
-        
-        
-        for ($i = 0; $i < 5; $i++) {
-
-            $carousels[] = [
-                'carousel_image' => 'circle-logo.png',
-                'title' => $faker->name,
-                'deskripsi' => $faker->address,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        }
-
-        DB::table('carousels')->insert($carousels);
+        Carousel::create([
+            'carousel_image' => 'skincare.png',
+            'title' => 'Beragam Skincare',
+            'deskripsi' => 'Menyediakan beragam skincare dari produk ternama',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        Carousel::create([
+            'carousel_image' => 'skincare2.png',
+            'title' => 'Rawat Diri Kamu Sekarang',
+            'deskripsi' => 'Menyediakan beragam skincare dari produk ternama',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

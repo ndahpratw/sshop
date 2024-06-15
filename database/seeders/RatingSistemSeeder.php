@@ -23,13 +23,13 @@ class RatingSistemSeeder extends Seeder
         
         for ($i = 0; $i < 5; $i++) {
 
-            $user = DB::table('users')->inRandomOrder()->first()->id;
+            $user = DB::table('users')->where('name', '!=', 'admin')->inRandomOrder()->first()->id;
 
             $ratings[] = [
                 'id' => Str::uuid(),
                 'user_id' => $user,
-                'rating' => rand(1,5),
-                'ulasan' => $faker->address,
+                'rating' => rand(4,5),
+                'ulasan' => 'Aplikasi Ini sangat bagus',
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
