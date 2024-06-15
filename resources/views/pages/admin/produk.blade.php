@@ -148,7 +148,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/petugas">
+        <a class="nav-link collapsed" href="{{ route('petugas.index') }}">
           <i class="bi bi-people-fill"></i>
           <span>Petugas</span>
         </a>

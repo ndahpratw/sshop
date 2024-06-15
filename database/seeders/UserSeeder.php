@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'User',
-            'email' => 'user@arkatama.test',
+            'email' => 'user@gmail.com',
             'gender' => 'P',
             'tanggal_lahir' => '2000-01-01',
             'phone_number' => '20000101',
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
         ]);
         User::create([
             'name' => 'admin',
-            'email' => 'admin@arkatama.test',
+            'email' => 'admin@gmail.com',
             'gender' => 'P',
             'tanggal_lahir' => '2000-01-01',
             'phone_number' => '20000101',

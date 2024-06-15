@@ -99,12 +99,12 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-bs-target="#profile" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#profile" data-bs-toggle="collapse" href="#">
             <i class="bi bi-bag-plus-fill"></i><span>Katalog Produk</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="profile" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+        <ul id="profile" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('pabrik.index') }}" class="nav-link active">
+            <a href="{{ route('pabrik.index') }}">
               <i class="bi bi-circle"></i><span>Informasi Pabrik</span>
             </a>
           </li>
@@ -141,14 +141,14 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('carousel.index') }}">
+        <a class="nav-link" href="{{ route('carousel.index') }}">
           <i class="bi bi-images"></i>
           <span>Carousel</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/petugas">
+        <a class="nav-link collapsed" href="{{ route('petugas.index') }}">
           <i class="bi bi-people-fill"></i>
           <span>Petugas</span>
         </a>

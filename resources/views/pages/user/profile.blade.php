@@ -289,12 +289,12 @@
                           <option disabled>Pilih Jenis Kelamin</option>
                           <option value="L" {{ $user->gender === 'L' ? 'selected' : '' }}>Laki - Laki</option>
                           <option value="P" {{ $user->gender === 'P' ? 'selected' : '' }}>Perempuan</option>
-                      </select>
-                      @error('gender')
-                      <div class="invalid-feedback">
-                          {{ $message }}
-                      </div>
-                      @enderror
+                        </select>
+                        @error('gender')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                       </div>
                     </div>
 

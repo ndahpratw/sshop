@@ -52,10 +52,44 @@ class DashboardController extends Controller
             $jumlah_data_brand[] = $data->jumlah_produk;
         }
 
+        // informasi status pesanan
+        $data_pesanan = DB::table('pembelians')
+        ->select('status_pesanan', DB::raw('COUNT(id) as jumlah_pesanan'))
+        ->whereNotIn('status_pesanan', ['selesai', 'dibatalkan', 'menunggu pembayaran'])
+        ->groupBy('status_pesanan')
+        ->orderBy('status_pesanan')
+        ->get();
+    
+        $data_status = [];
+        $jumlah_data_pesanan = [];
+        
+        foreach ($data_pesanan as $data) {
+            $data_status[] = $data->status_pesanan;
+            $jumlah_data_pesanan[] = $data->jumlah_pesanan;
+        }
+
+        // informasi status pembelian
+        $data_pembelian = DB::table('pembelians')
+        ->select(DB::raw('DATE(created_at) as tanggal'), DB::raw('COUNT(id) as jumlah_pesanan'))
+        ->where('status_pesanan', 'selesai')
+        ->groupBy('tanggal')
+        ->orderBy('tanggal')
+        ->get();
+    
+        $data_tanggal = [];
+        $jumlah_pembelian = [];
+        
+        foreach ($data_pembelian as $data) {
+            $data_tanggal[] = $data->tanggal;
+            $jumlah_pembelian[] = $data->jumlah_pesanan;
+        }
+
         return view('pages.admin.dashboard', compact(
             'title', 'jumlah_brand', 'admin', 'rating', 'pemasukan',
             'data_kategori', 'jumlah_data',
             'data_brand', 'jumlah_data_brand',
+            'data_status', 'jumlah_data_pesanan',
+            'data_tanggal', 'jumlah_pembelian',
         ));
     }
 }

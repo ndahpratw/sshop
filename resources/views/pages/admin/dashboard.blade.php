@@ -148,7 +148,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/petugas">
+        <a class="nav-link collapsed" href="{{ route('petugas.index') }}">
           <i class="bi bi-people-fill"></i>
           <span>Petugas</span>
         </a>
@@ -265,7 +265,45 @@
         </div><!-- End Customers Card -->
 
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center"> Informasi Penjualan</h5>
+                    <!-- Line Chart -->
+                    <canvas id="grafik-penjualan" style="max-height: 400px;"></canvas>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            // Mengambil data dari server
+                            let data_tanggal = {!! json_encode($data_tanggal) !!};
+                            let jumlah_pembelian = {!! json_encode($jumlah_pembelian) !!};
+
+                            new Chart(document.querySelector('#grafik-penjualan'), {
+                                type: 'line',
+                                data: {
+                                    labels: data_tanggal,
+                                    datasets: [{
+                                        label: 'Jumlah Pembelian Perhari',
+                                        data: jumlah_pembelian,
+                                        fill: false,
+                                        borderColor: 'black',
+                                        tension: 0.1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                    <!-- End Line CHart -->
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title text-center"> Informasi Kategori Produk </h5>
@@ -311,7 +349,7 @@
                 </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title text-center"> Informasi Brand </h5>
@@ -353,6 +391,53 @@
                     </script>
                   
                     <!-- End Doughnut CHart -->
+
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center"> Informasi Pesanan </h5>
+                    <!-- Bar Chart -->
+                    <canvas id="grafik-status-pesanan" style="min-height: 200px;"></canvas>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            // Mengambil data dari server
+                            let status = {!! json_encode($data_status) !!};
+                            let jumlah_data = {!! json_encode($jumlah_data_pesanan) !!};
+
+                            new Chart(document.querySelector('#grafik-status-pesanan'), {
+                                type: 'bar',
+                                data: {
+                                    labels: status,
+                                    datasets: [{
+                                        data: jumlah_data,
+                                          label: 'jumlah : ',
+                                        backgroundColor: [
+                                          'rgb(255, 99, 132)',
+                                          'rgb(54, 162, 235)',
+                                          'rgb(255, 205, 86)'
+                                        ],
+                                        borderColor: [
+                                          'rgb(255, 99, 132)',
+                                          'rgb(54, 162, 235)',
+                                          'rgb(255, 205, 86)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                    <!-- End Bar CHart -->
 
                 </div>
             </div>

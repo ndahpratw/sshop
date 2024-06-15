@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AliranBarangController;
 use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\DashboardController;
@@ -103,7 +104,9 @@ Route::group(["middleware" => ["auth", 'cekrole:admin']], function () {
     Route::get('/kritik-saran', [RatingController::class, 'index']);
     Route::delete('/kritik-saran/{id}', [RatingController::class, 'destroy']);
 
-    
+    // ------------- petugas
+    Route::resource('/petugas', AdminController::class)->names('petugas');
+
     // ------------- setting
     Route::get('/setting', [SettingController::class, 'index']);
     Route::put('/setting/{id}', [SettingController::class, 'update']);

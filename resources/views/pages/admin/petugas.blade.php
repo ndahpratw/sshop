@@ -99,12 +99,12 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-bs-target="#profile" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#profile" data-bs-toggle="collapse" href="#">
             <i class="bi bi-bag-plus-fill"></i><span>Katalog Produk</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="profile" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+        <ul id="profile" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('pabrik.index') }}" class="nav-link active">
+            <a href="{{ route('pabrik.index') }}">
               <i class="bi bi-circle"></i><span>Informasi Pabrik</span>
             </a>
           </li>
@@ -141,14 +141,14 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('carousel.index') }}">
+        <a class="nav-link collapsed" href="{{ route('petugas.index') }}">
           <i class="bi bi-images"></i>
           <span>Carousel</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('petugas.index') }}">
+        <a class="nav-link" href="{{ route('petugas.index') }}">
           <i class="bi bi-people-fill"></i>
           <span>Petugas</span>
         </a>
@@ -207,7 +207,7 @@
             <div class="card-body pt-3">
 
               <div class="d-flex align-items-center justify-content-between m-3">
-                <h5 class="card-title">Total : {{ count($pabrik) }} Brand</h5>
+                <h5 class="card-title">Total : {{ count($admin) }} Admin</h5>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-pabrik">
                   <i class="bi bi-plus-square"></i> Tambah
                 </button>
@@ -218,96 +218,147 @@
                   <thead>
                     <tr class="text-center">
                       <th> No.  </th>
-                      <th> Logo  </th>
-                      <th> Brand  </th>
-                      <th> Produk  </th>
-                      <th> Narahubung  </th>
-                      <th> Aksi  </th>
+                      <th> Profile  </th>
+                      <th> Nama </th>
+                      <th> Tanggal Lahir  </th>
+                      <th> Gender </th>
+                      <th> <i class="bi bi-whastapp"></i> </th>
+                      <th> Alamat </th>
+                      <th> Bergabung </th>
+                      <th> Aksi </th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($pabrik as $item)
+                    @foreach ($admin as $item)
                         <tr>
                           <td> {{ $no++ }} </td>
                           <td> 
-                            <img src="{{ asset('assets/img/pabrik/'.$item->logo) }}" alt="{{ $item->logo }}" style="width: 150px; height: 150px; border:1px solid black">
+                            @if ($item->profile != null)
+                              <img id="profileImage" src="{{ asset('assets/img/user/' . $item->profile) }}" alt="{{ $item->profile }}" style="width: 75px; height: 75px; border:1px solid black">
+                            @else
+                                <img id="profileImage" src="{{ asset('assets/img/logo/icon-profile.jpeg') }}" alt="Profile" style="width: 75px; height: 75px; border:1px solid black">
+                            @endif
                           </td>
-                          <td> {{ $item->nama_pabrik }} </td>
-                          <td> {{ $item->produk->count() }} tersedia </td>
+                          <td> {{ $item->name }} </td>
+                          <td> {{ \Carbon\Carbon::parse($item->tanggal_lahir)->format('d F Y') }} </td>
                           <td>
-                            @if ($item->whatsApp != null)
-                              <a href="https://wa.me/{{ $item->whatsApp }}" target="_blank"> <i class="bi bi-whatsapp"></i> via WhatsApp </a> <br>
+                            @if ($item->gender == 'L')
+                                <div class="col-lg-9 col-md-8">Laki - Laki</div>
+                            @else
+                                <div class="col-lg-9 col-md-8">Perempuan</div>
                             @endif
-                            @if ($item->instagram != null)
-                              <a href="https://instagram.com/{{ $item->instagram }}" target="_blank"> <i class="bi bi-instagram"></i> via Instagram </a> <br>
-                            @endif
-                            @if ($item->email != null)
-                              <a href="mailto:{{ $item->email }}" target="_blank"> <i class="bi bi-envelope"></i> via Email </a>
-                            @endif
-                          </td>                          
+                          </td>
+                          <td>
+                            <a href="wa.me/{{ $item->phone_number }}"> <i class="bi bi-whastapp"></i> </a>
+                          </td>
+                          <td> {{ $item->address }} </td>
+                          <td> {{ $item->created_at->format('d F Y') }} </td>
                           <td>
                             {{-- <a href="{{ route('pabrik.edit', $item->id) }}" class="btn btn-primary btn-sm"><i class="ri-pencil-fill"></i></a> --}}
                             <button type="button" class="btn btn-primary btn-sm shadow-none" data-bs-toggle="modal" data-bs-target="#edit<?php echo $item->id?>"><i class="ri-pencil-fill"></i></button>
                             <div class="modal fade" id="edit<?php echo $item->id?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
-                                <form action="{{ route('pabrik.update', $item->id) }}" method="post" enctype="multipart/form-data">
-                                  @csrf
-                                  @method('put')
-                                  <div class="modal-content">
-                                  <div class="modal-header">
-                                      <h5 class="modal-title">Edit Data Brand</h5>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="row">
-                                      <div>
-                                        <label for="nama_pabrik" class="form-label">Brand</label>
-                                        <input type="text" name="nama_pabrik" class="form-control @error('nama_pabrik') is-invalid @enderror shadow-none" id="nama_pabrik" value="{{ $item->nama_pabrik }}">
-                                        @error('nama_pabrik') 
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div> 
-                                        @enderror
-                                      </div>
-                                      <div class="col-md-3" style="margin-top: 10px">
-                                        <img id="logo" src="{{ asset('assets/img/pabrik/'.$item->logo) }}" alt="{{ $item->logo }}" style="width: 100px; border:1px solid black">
-                                      </div>
-                                      <div class="col-md-9" style="margin-top: 10px">
-                                        <label id="logo" class="form-label">Logo | 3 x 3</label>
-                                        <input type="file"  id="logoInput" name="logo" class="form-control @error('logo') is-invalid @enderror shadow-none" id="logo" value="{{ $item->logo }}" accept="image/*">
-                                        @error('logo') 
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div> 
-                                        @enderror
-                                      </div>
-                                      <label id="logo" class="form-label" style="margin-top: 10px">Narahubung</label>
-                                      <div>
-                                        <div class="input-group" style="margin-top: 5px">
-                                          <span class="input-group-text"><i class="bi bi-whatsapp"></i></span>
-                                          <input type="text" name="whatsApp" class="form-control shadow-none" value="{{ $item->whatsApp }}" placeholder="Format : 62..........">
-                                        </div>
-                                      </div>
-                                      <div style="margin-top: 5px">
-                                        <div class="input-group">
-                                          <span class="input-group-text"><i class="bi bi-instagram"></i></span>
-                                          <input type="text" name="instagram" class="form-control shadow-none" value="{{ $item->instagram }}" placeholder="Username Instagram">
-                                        </div>
-                                      </div>
-                                      <div style="margin-top: 5px">
-                                        <div class="input-group">
-                                          <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                          <input type="text" name="email" class="form-control shadow-none" value="{{ $item->email }}" placeholder="Alamat Email">
-                                        </div>
-                                      </div>              
+                                  <form action="{{ route('petugas.update', $item->id) }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('put')
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Tambah Data Admin / Petugas</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                      <button type="button" class="btn text-secondary shadow-none" data-bs-dismiss="modal">Kembali</button>
-                                      <button type="submit" class="btn btn-success text-white shadow-none">Kirim</button>
-                                  </div>
-                                  </div>
-                              </form>
+                                    <div class="modal-body">
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <label for="nama" class="form-label">Nama</label>
+                                          <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror shadow-none" id="nama" value="{{ $item->name }}">
+                                          @error('nama') 
+                                          <div class="invalid-feedback">
+                                              {{ $message }}
+                                          </div> 
+                                          @enderror
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label for="email" class="form-label">Email</label>
+                                          <input type="text" name="email" class="form-control @error('email') is-invalid @enderror shadow-none" id="email" value="{{ $item->email }}">
+                                          @error('email') 
+                                          <div class="invalid-feedback">
+                                              {{ $message }}
+                                          </div> 
+                                          @enderror
+                                        </div>
+                                        <div class="col-md-4 mt-2">
+                                          <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                                          <input type="date" name="tanggal_lahir" class="form-control @error('tanggal_lahir') is-invalid @enderror shadow-none" id="tanggal_lahir" value="{{ $item->tanggal_lahir }}">
+                                          @error('tanggal_lahir') 
+                                          <div class="invalid-feedback">
+                                              {{ $message }}
+                                          </div> 
+                                          @enderror
+                                        </div>
+                                        <div class="col-md-4 mt-2">
+                                          <label for="gender" class="form-label">Jenis Kelamin</label>
+                                          <select class="form-select @error('gender') is-invalid @enderror" id="gender" aria-label="Default select example" name="gender">
+                                            <option selected disabled>Pilih Jenis Kelamin</option>
+                                            <option value="L" {{ $item->gender === 'L' ? 'selected' : '' }}>Laki - Laki</option>
+                                            <option value="P" {{ $item->gender === 'P' ? 'selected' : '' }}>Perempuan</option>
+                                          </select>
+                                          @error('gender')
+                                          <div class="invalid-feedback">
+                                              {{ $message }}
+                                          </div>
+                                          @enderror
+                                        </div>
+                                        <div class="col-md-4 mt-2">
+                                          <label for="telepon" class="form-label">Telepon</label>
+                                          <input type="text" name="telepon" class="form-control @error('telepon') is-invalid @enderror shadow-none" id="telepon" value="{{ $item->phone_number }}" placeholder="6282.......">
+                                          @error('telepon') 
+                                          <div class="invalid-feedback">
+                                              {{ $message }}
+                                          </div> 
+                                          @enderror
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                          <label for="alamat" class="form-label">Alamat</label>
+                                          <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror shadow-none" id="alamat" value="{{ $item->address }}">
+                                          @error('alamat') 
+                                          <div class="invalid-feedback">
+                                              {{ $message }}
+                                          </div> 
+                                          @enderror
+                                        </div>
+                                        <div class="col-md-3" style="margin-top: 10px">
+                                          @if ($item->profile != null)
+                                            <img id="logo" src="{{ asset('assets/img/user/' . $item->profile) }}" alt="{{ $item->profile }}" style="width: 100px; border:1px solid black">
+                                          @else
+                                              <img id="logo" src="{{ asset('assets/img/logo/icon-profile.jpeg') }}" alt="Profile" style="width: 100px; border:1px solid black">
+                                          @endif
+                                        </div>
+                                        <div class="col-md-9" style="margin-top: 10px">
+                                          <label id="profile" class="form-label">Gambar Profile</label>
+                                          <input type="file" id="logoInput" name="profile" class="form-control @error('profile') is-invalid @enderror shadow-none" id="profile" value="{{ $item->profile }}" accept="image/*">
+                                          @error('profile') 
+                                          <div class="invalid-feedback">
+                                              {{ $message }}
+                                          </div> 
+                                          @enderror
+                                        </div>          
+                                        <div class="col-md-12 mt-2">
+                                          <label for="password" class="form-label">Password</label>
+                                          <input type="password" name="password" class="form-control @error('password') is-invalid @enderror shadow-none" id="password" placeholder="abaikan jika tidak perlu">
+                                          @error('password') 
+                                          <div class="invalid-feedback">
+                                              {{ $message }}
+                                          </div> 
+                                          @enderror
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn text-secondary shadow-none" data-bs-dismiss="modal">Kembali</button>
+                                        <button type="submit" class="btn btn-success text-white shadow-none">Kirim</button>
+                                    </div>
+                                    </div>
+                                </form>
                               </div>
                             </div>
 
@@ -316,15 +367,15 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                          <h5 class="modal-title text-center">Konfirmasi Hapus Brand Dari Katalog</h5>
+                                          <h5 class="modal-title text-center">Konfirmasi Hapus Data Petugas</h5>
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-center">
-                                            <p style="color: black">Apakah anda yakin untuk menghapus <br> <b>{{ $item->nama_pabrik }}</b> beserta data terkait dari katalog ?</p>
+                                            <p style="color: black">Apakah anda yakin untuk menghapus data <br> <b>{{ $item->name}}</b>?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary btn-sm shadow-none" data-bs-dismiss="modal">Tidak</button>
-                                            <form action="{{ route('pabrik.destroy', $item->id) }}" method="POST" style="display: inline;">
+                                            <form action="{{ route('petugas.destroy', $item->id) }}" method="POST" style="display: inline;">
                                                 @method('delete')
                                                 @csrf
                                                 <input type="submit" value="Hapus" class="btn btn-danger btn-sm shadow-none">
@@ -333,8 +384,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <a href="{{ route('pabrik.show', $item->id) }}" class="btn btn-info btn-sm"><i class="bi bi-chat-left-dots-fill"></i></a>
                           </td>
                         </tr>
                     @endforeach
@@ -351,52 +400,91 @@
     <!-- Modal Tambah Data -->
     <div class="modal fade" id="tambah-pabrik" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
-      <form action="{{ route('pabrik.store') }}" method="post" enctype="multipart/form-data">
+      <form action="{{ route('petugas.store') }}" method="post" enctype="multipart/form-data">
           @csrf
           <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title">Tambah Data Brand</h5>
+              <h5 class="modal-title">Tambah Data Admin / Petugas</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="row">
-              <div>
-                <label for="nama_pabrik" class="form-label">Brand</label>
-                <input type="text" name="nama_pabrik" class="form-control @error('nama_pabrik') is-invalid @enderror shadow-none" id="nama_pabrik" value="{{ old('nama_pabrik') }}">
-                @error('nama_pabrik') 
+              <div class="col-md-6">
+                <label for="nama" class="form-label">Nama</label>
+                <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror shadow-none" id="nama" value="{{ old('nama') }}">
+                @error('nama') 
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div> 
                 @enderror
               </div>
-              <div style="margin-top: 5px">
-                <label id="logo" class="form-label">Logo | 3 x 3</label>
-                <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror shadow-none" id="logo" value="{{ old('logo') }}" accept="image/*">
-                @error('logo') 
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror shadow-none" id="email" value="{{ old('email') }}">
+                @error('email') 
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div> 
                 @enderror
               </div>
-              <label id="logo" class="form-label" style="margin-top: 10px">Narahubung</label>
-              <div>
-                <div class="input-group" style="margin-top: 5px">
-                  <span class="input-group-text"><i class="bi bi-whatsapp"></i></span>
-                  <input type="text" name="whatsApp" class="form-control shadow-none" value="{{ old('whatsApp') }}" placeholder="Format : 62..........">
-                </div>
+              <div class="col-md-4 mt-2">
+                <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                <input type="date" name="tanggal_lahir" class="form-control @error('tanggal_lahir') is-invalid @enderror shadow-none" id="tanggal_lahir" value="{{ old('tanggal_lahir') }}">
+                @error('tanggal_lahir') 
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div> 
+                @enderror
               </div>
-              <div style="margin-top: 5px">
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-instagram"></i></span>
-                  <input type="text" name="instagram" class="form-control shadow-none" value="{{ old('instagram') }}" placeholder="Username Instagram">
+              <div class="col-md-4 mt-2">
+                <label for="gender" class="form-label">Jenis Kelamin</label>
+                <select class="form-select @error('gender') is-invalid @enderror" id="gender" aria-label="Default select example" name="gender">
+                  <option selected disabled>Pilih Jenis Kelamin</option>
+                  <option value="L" {{ old('gender') === 'L' ? 'selected' : '' }}>Laki - Laki</option>
+                  <option value="P" {{ old('gender') === 'P' ? 'selected' : '' }}>Perempuan</option>
+                </select>
+                @error('gender')
+                <div class="invalid-feedback">
+                    {{ $message }}
                 </div>
+                @enderror
               </div>
-              <div style="margin-top: 5px">
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                  <input type="text" name="email" class="form-control shadow-none" value="{{ old('email') }}" placeholder="Alamat Email">
-                </div>
-              </div>              
+              <div class="col-md-4 mt-2">
+                <label for="telepon" class="form-label">Telepon</label>
+                <input type="text" name="telepon" class="form-control @error('telepon') is-invalid @enderror shadow-none" id="telepon" value="{{ old('telepon') }}" placeholder="6282.......">
+                @error('telepon') 
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div> 
+                @enderror
+              </div>
+              <div class="col-md-12 mt-2">
+                <label for="alamat" class="form-label">Alamat</label>
+                <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror shadow-none" id="alamat" value="{{ old('alamat') }}">
+                @error('alamat') 
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div> 
+                @enderror
+              </div>
+              <div class="col-md-6 mt-2">
+                <label id="profile" class="form-label">Gambar Profile</label>
+                <input type="file" name="profile" class="form-control @error('profile') is-invalid @enderror shadow-none" id="profile" value="{{ old('profile') }}" accept="image/*">
+                @error('profile') 
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div> 
+                @enderror
+              </div>             
+            <div class="col-md-6 mt-2">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password" class="form-control @error('password') is-invalid @enderror shadow-none" id="password" value="{{ old('password') }}">
+              @error('password') 
+              <div class="invalid-feedback">
+                  {{ $message }}
+              </div> 
+              @enderror
+            </div>
             </div>
           </div>
           <div class="modal-footer">
