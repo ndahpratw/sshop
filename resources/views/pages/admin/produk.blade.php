@@ -358,7 +358,7 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route('produk.show', $item->id) }}" class="btn btn-info btn-sm"><i class="bi bi-chat-left-dots-fill"></i></a>
+                            {{-- <a href="{{ route('produk.show', $item->id) }}" class="btn btn-info btn-sm"><i class="bi bi-chat-left-dots-fill"></i></a> --}}
                           </td>
                         </tr>
                     @endforeach

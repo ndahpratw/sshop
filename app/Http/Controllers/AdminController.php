@@ -33,7 +33,7 @@ class AdminController extends Controller
         ]);
 
         $profile = $request->file('profile');
-        $imageName = $request->nama . '_' .  $request->telepon .'.' . $profile->extension();
+        $imageName = $request->email .'.' . $profile->extension();
         $profile->move(public_path('assets/img/user/'), $imageName);
 
         $admin = new User();
@@ -83,7 +83,7 @@ class AdminController extends Controller
                 }
             }
             $profile= $request->file('profile');
-            $imageName = $request->nama . '_' .  $request->telepon .'.' . $profile->extension();
+            $imageName = $request->email .'.' . $profile->extension();
             $profile->move(public_path('assets/img/user/'), $imageName);    
         } else {
             $imageName = $admin->profile;

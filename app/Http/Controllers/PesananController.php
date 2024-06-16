@@ -59,6 +59,7 @@ class PesananController extends Controller
         $pemesanan->jumlah = $request->jumlah;
         $pemesanan->total = $request->total;
         $pemesanan->alamat = $request->alamat;
+        $pemesanan->pesan = $request->pesan;
         $pemesanan->metode_pembayaran = $request->metode_pembayaran;
         $pemesanan->status_pembayaran = 'belum bayar';
         $pemesanan->status_pesanan = 'menunggu pembayaran';

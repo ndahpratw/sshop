@@ -130,7 +130,7 @@ class ProdukSeeder extends Seeder
             'toko_id' => DB::table('pabriks')->where('nama_pabrik', 'Wardah')->first()->id,
             'kategori_id' => DB::table('kategori_produks')->where('nama_kategori', 'Mosturizer')->first()->id,
             'nama_produk' => 'Wardah UV Shield Essential Sunscreen Gel SPF 35+++',
-            'foto_produk' => 'wardah_sunscreen.jpg',
+            'foto_produk' => 'wardah-sunscreen.jpeg',
             'harga' => 25000,
             'stok' => $faker->numberBetween(1, 100),
             'deskripsi' => $faker->paragraph,

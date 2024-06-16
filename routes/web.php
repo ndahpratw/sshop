@@ -42,6 +42,9 @@ Route::get('/login', function () { return view('pages.user.login'); })->name('lo
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
+Route::get('/register', function () { return view('pages.user.register'); });
+Route::post('/register', [UserController::class, 'register']);
+
 
 // USER ------------------------------------------------------------------------------------------------------------------
 Route::group(["middleware" => ["auth", 'cekrole:user']], function () {

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Carousel;
-use App\Models\KategoriProduk;
+use App\Models\User;
 use App\Models\Pabrik;
-use App\Models\Pembelian;
 use App\Models\Produk;
-use App\Models\RatingSistem;
 use App\Models\Setting;
+use App\Models\Carousel;
+use App\Models\Pembelian;
+use App\Models\RatingSistem;
 use Illuminate\Http\Request;
+use App\Models\KategoriProduk;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,42 @@ class UserController extends Controller
         $carousel = Carousel::where('id', 1)->first();
         $carousels = Carousel::where('id','!=', 1)->get();
         return view('index', compact('brand', 'kategori', 'ulasan_sistem', 'produk', 'setting', 'carousel', 'carousels')); 
+    }
+
+    // REGISTER
+    public function register(Request $request) {
+        // dd($request);    
+        $request->validate([
+            'nama' => 'required',
+            'email' => 'required|email|unique:users',
+            'tanggal_lahir' => 'required',
+            'gender' => 'required',
+            'telepon' => 'required',
+            'alamat' => 'required',
+            'profile' => 'required',
+            'password' => 'required',
+        ]);
+
+        $profile = $request->file('profile');
+        $imageName = $request->email .'.' . $profile->extension();
+        $profile->move(public_path('assets/img/user/'), $imageName);
+
+        $user = new User();
+        $user->name = $request->nama;
+        $user->email = $request->email;
+        $user->profile = $imageName;
+        $user->gender = $request->gender;
+        $user->phone_number = $request->telepon;
+        $user->tanggal_lahir = $request->tanggal_lahir;
+        $user->address = $request->alamat;
+        $user->password = Hash::make($request->password);
+        $user->role = 'user';
+
+        if ($user->save()) {
+            return redirect('/login')->with('success', 'Data berhasil disimpan! Silahkan Login!');
+        } else {
+            return redirect()->back()->with('error', 'Gagal menyimpan data');
+        }
     }
 
     // PROFILE
@@ -126,7 +163,7 @@ class UserController extends Controller
         }
 
         $profileImage = $request->file('profile');
-        $imageName = auth()->user()->id . '_' . auth()->user()->name . '.' . $profileImage->extension();
+        $imageName = auth()->user()->id . '_' . auth()->user()->email . '.' . $profileImage->extension();
         $profileImage->move(public_path('assets/img/user/'), $imageName);
 
         $data = DB::table('users')

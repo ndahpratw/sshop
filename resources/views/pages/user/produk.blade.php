@@ -90,43 +90,53 @@
         <section id="product" class="services" style="margin-top: 75px; min-height: 100vh">
             <div class="container" data-aos="fade-up">
       
-              <div class="row gy-5">
+                @if (count($produk))
+                    <div class="row gy-5">
 
-                @foreach ($produk as $item)
-                    <div class="col-xl-3 col-md-3" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="service-item">
-                        <div class="img">
-                        <img src="{{ asset('assets/img/produk/'.$item->foto_produk) }}" alt="{{ $item->foto_produk }}" class="img-fluid">
-                        </div>
-                        <div class="details position-relative">
-                            <a href="#test">
-                                <div class="icon">
-                                <i class="bi bi-cart-fill"></i>
+                        @foreach ($produk as $item)
+                            <div class="col-xl-3 col-md-3" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="service-item">
+                                <div class="img">
+                                <img src="{{ asset('assets/img/produk/'.$item->foto_produk) }}" alt="{{ $item->foto_produk }}" class="img-fluid" style="border: 1px solid black">
                                 </div>
-                            </a>
-                        {{-- <a href="#" class="stretched-link"> --}}
-                            <h3>{{ $item->nama_produk }}</h3>
-                        {{-- </a> --}}
-                            <div class="d-flex justify-content-between align-items-center" >
-                                <p>Rp. {{ $item->harga }}</p> 
-                                <p>20 Terjual</p>
+                                <div class="details position-relative">
+                                    <a href="#">
+                                        <div class="icon">
+                                        <i class="bi bi-cart-fill"></i>
+                                        </div>
+                                    </a>
+                                {{-- <a href="#" class="stretched-link"> --}}
+                                    <h3>{{ $item->nama_produk }}</h3>
+                                {{-- </a> --}}
+                                    <div class="d-flex justify-content-between align-items-center" >
+                                        <p>Rp. {{ $item->harga }}</p> 
+                                        <p>20 Terjual</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center" >
+                                        <a class="checkout" href="/payment-product/{{ $item->id }}"> beli sekarang </a>
+                                        <a class="checkout2" href="/detail-product/{{ $item->id }}"> >> </a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center" >
-                                <a class="checkout" href="/payment-product/{{ $item->id }}"> beli sekarang </a>
-                                <a class="checkout2" href="/detail-product/{{ $item->id }}"> >> </a>
-                            </div>
-                        </div>
+                            </div><!-- End Service Item -->
+                        @endforeach
+          
                     </div>
-                    </div><!-- End Service Item -->
-                @endforeach
-      
-              </div>
-      
-              <div class="text-center py-5">
-                <i>
-                    <p> Anda Telah Melihat Semua Produk Kami </p>
-                </i>
-              </div>
+            
+                    <div class="text-center py-5">
+                        <i>
+                            <p> Anda Telah Melihat Semua Produk Kami </p>
+                        </i>
+                    </div>
+                @else
+
+                    <div class="d-flex justify-content-center align-items-center text-center text-danger" style="min-height: 50vh">
+                        <i>
+                            <p> Produk Belum Tersedia </p>
+                        </i>
+                    </div>
+                    
+                @endif
       
             </div>
         </section>
