@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembelian;
 use App\Models\Produk;
+use App\Models\RatingProduk;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -22,7 +24,9 @@ class PenjualanController extends Controller
     public function detail_product($id) {
         $title = 'Sherenity Shine - Detail Product';
         $produk = Produk::find($id);
-        return view('pages.user.produk-detail', compact('title', 'produk'));
+        $data_pembelian = Pembelian::where('produk_id', $produk->id)->pluck('id');
+        $rating_produk = RatingProduk::whereIn('pembelian_id', $data_pembelian)->get();
+        return view('pages.user.produk-detail', compact('title', 'produk', 'rating_produk'));
     }
 
     public function payment_product($id) {

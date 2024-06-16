@@ -138,7 +138,7 @@
                                             <div class="d-flex justify-content-center align-items-center" style="margin: 25px 0px">
                                                 <div style="width: 75%" class="text-center mt-auto">
                                                     <div class="d-flex justify-content-between align-items-center" >
-                                                        <a class="checkout" href="#checkout">  <i class="bi bi-cart-fill"></i> keranjang </a>
+                                                        <a class="checkout" href="/our-product">  kembali </a>
                                                         <a class="checkout" href="/payment-product/{{ $produk->id }}"> beli sekarang </a>
                                                     </div>
                                                 </div>
@@ -162,7 +162,37 @@
 
                                             <div class="card my-3">
                                                 <div class="card-body">
-                                                    review
+                                                    {{ count($rating_produk) }} review terkait
+
+                                                    @if (count($rating_produk))
+                                                        @foreach ($rating_produk as $item)
+                                                            <p style="border: 1px solid black; border-radius: 5px">
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <p>{{ $item->user->name }}</p>
+                                                                    <p>
+                                                                        @if ($item->rating == 5)
+                                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                                        @elseif ($item->rating == 4)
+                                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                                        @elseif ($item->rating == 3)
+                                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                                        @elseif ($item->rating == 2)
+                                                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                                        @elseif ($item->rating == 1)
+                                                                            <i class="bi bi-star-fill"></i>
+                                                                        @endif
+                                                                    </p>
+                                                                </div>
+                                                                <p>{{ $item->ulasan }}</p>
+                                                            </p>
+                                                        @endforeach
+                                                    @else
+                                                        <p class="text-danger">
+                                                            <i>
+                                                                belum ada ulasan terkait
+                                                            </i>
+                                                        </p>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -190,17 +220,18 @@
         <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
 
             <div class="d-flex flex-column align-items-center align-items-lg-start">
-            <div class="copyright">
-                &copy; Copyright <strong><span>HeroBiz</span></strong>. All Rights Reserved
+                <div class="copyright">
+                  &copy; Copyright <strong><span>Sherenity Shine</span></strong>. All Rights Reserved
+                </div>
+                <div class="credits">
+                  <!-- All the links in the footer should remain intact. -->
+                  <!-- You can delete the links only if you purchased the pro version. -->
+                  <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                  <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
+                  Designed by <a href="mailto:indhpratw@gmail.com" target="_blank">indhpratw@gmail.com</a>
+                </div>
             </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
-            </div>
+      
 
         </div>
         </div>
