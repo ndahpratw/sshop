@@ -68,16 +68,19 @@
           @if (empty(auth()->user()))
               <li> <a class="btn-getstarted scrollto" href="/login">Get Started</a> </li>
           @else
-              <li>            
-                  <a href="#">
-                      <i class="bi bi-cart-fill"></i>
-                  </a>
-              </li>
-              <li>
-                  <a class="btn-getstarted" href="/profile">
+              <li class="dropdown">
+                  <a class="btn-getstarted" href="">
                       {{auth()->user()->name}}
+
+                      <i class="bi bi-chevron-down dropdown-indicator"></i>
                       {{-- <img src="{{ asset('assets/img/icon.jpg') }}" style="border-radius: 50%; width:25px; margin-right: 10px"> Keluar --}}
                   </a>
+                  <ul>
+                    <li><a href="/profile">Akun Saya</a></li>
+                    <li><a href="/pesanan">Pesanan Saya</a></li>
+                    <li><a href="/rating-sistem">Kritik dan Saran</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                  </ul>
               </li>
           @endif
 
@@ -151,7 +154,7 @@
         <div class="row justify-content-center gy-4">
 
             @foreach ($kategori as $item)                
-            <div class="col-xl-2 col-md-3 d-flex" data-aos="zoom-out">
+            <div class="col-xl-2 col-md-6 col-sm-6 col-6 d-flex" data-aos="zoom-out">
               <div class="service-item">
                 <h6><a href="/our-product/{{ $item->id }}" class="stretched-link">{{ $item->nama_kategori }}</a></h6>
               </div>
@@ -201,21 +204,14 @@
                 <img src="{{ asset('assets/img/produk/'.$item->foto_produk) }}" alt="{{ $item->foto_produk }}" class="img-fluid" style="min-height: 450px">
               </div>
               <div class="details position-relative">
-                <a href="#test">
-                    <div class="icon">
-                    <i class="bi bi-cart-fill"></i>
-                    </div>
-                </a>
-            {{-- <a href="#" class="stretched-link"> --}}
                 <h3>{{ $item->nama_produk }}</h3>
-            {{-- </a> --}}
                 <div class="d-flex justify-content-between align-items-center" >
                     <p>Rp. {{ $item->harga }}</p> 
                     <p>20 Terjual</p>
                 </div>
                 <div class="d-flex justify-content-between align-items-center" >
                     <a class="checkout" href="/payment-product/{{ $item->id }}"> beli sekarang </a>
-                    <a class="checkout2" href="/detail-product/{{ $item->id }}"> >> </a>
+                    <a class="checkout2" href="/detail-product/{{ $item->id }}"> <i class="bi bi-arrow-right-circle"></i> </a>
                 </div>
             </div>
             </div>
@@ -225,7 +221,7 @@
         </div>
 
         <div class="text-center py-5">
-            <a class="product" href="/our-product" >Telusuri Produk Lainnya >></a>
+            <a class="product" href="/our-product" > <i class="bi bi-arrow-right-square"></i> Telusuri Produk Lainnya</a>
         </div>
 
       </div>
@@ -299,21 +295,11 @@
             <div class="info">
 
               <div class="info-item d-flex">
-                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <i class="bi bi-geo-alt-fill flex-shrink-0"></i>
                 <div>
                   <h4>Location:</h4>
                   <a href="{{ $setting->alamat_rujukan }}" target="_blank">
                     <p>{{ $setting->alamat }}</p>
-                  </a>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex">
-                <i class="bi bi-envelope flex-shrink-0"></i>
-                <div>
-                  <h4>Email:</h4>
-                  <a href="mailto:{{ $setting->email }}" target="_blank">
-                    <p>{{ $setting->email }}</p>
                   </a>
                 </div>
               </div><!-- End Info Item -->
@@ -324,6 +310,16 @@
                   <h4>WhatsApp:</h4>
                   <a href="https://wa.me/{{ $setting->telepon }}" target="_blank">
                     <p>{{ $setting->telepon }}</p>
+                  </a>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-envelope-fill flex-shrink-0"></i>
+                <div>
+                  <h4>Email:</h4>
+                  <a href="mailto:{{ $setting->email }}" target="_blank">
+                    <p>{{ $setting->email }}</p>
                   </a>
                 </div>
               </div><!-- End Info Item -->

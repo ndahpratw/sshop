@@ -356,7 +356,7 @@ section {
   .navbar .dropdown ul {
     display: block;
     position: absolute;
-    left: 0;
+    right: 0;
     top: 100%;
     margin: 0;
     padding: 0 0 10px 0;
@@ -466,7 +466,7 @@ section {
     inset: 0;
     padding: 10px 0;
     margin: 0;
-    background: rgba(var(--color-secondary-rgb), 0.9);
+    background: #B7B597;
     overflow-y: auto;
     transition: 0.3s;
     z-index: 9998;

@@ -71,7 +71,12 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/">
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+              </a>
+            </li>
             <li>
               <a class="dropdown-item d-flex align-items-center" href="/logout">
                 <i class="bi bi-box-arrow-right"></i>
@@ -250,9 +255,11 @@
                                 </div>
                               @endif
                               @if ($item->status_pesanan === 'selesai' )
-                                <div class="d-flex justify-content-center">
-                                  <a style="background-color: #254336; padding:5px 50px; border-radius: 5px" href="/rating/{{ $item->id }}">Rating</a>
-                                </div>
+                                @if ($item->ratingProduk === null)        
+                                  <div class="d-flex justify-content-center">
+                                    <a style="background-color: #254336; padding:5px 50px; border-radius: 5px" href="/rating/{{ $item->id }}">Rating</a>
+                                  </div>
+                                @endif
                               @endif
                             </div>
                           </div>

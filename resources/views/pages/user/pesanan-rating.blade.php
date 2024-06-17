@@ -103,7 +103,12 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/">
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+              </a>
+            </li>
             <li>
               <a class="dropdown-item d-flex align-items-center" href="/logout">
                 <i class="bi bi-box-arrow-right"></i>
@@ -252,7 +257,7 @@
                           <div class="card-body">
                             <form action="/rating" method="post">
                               @csrf
-                              <input type="hidden" value="{{ $pesanan->produk->id }}" name="produk_id" class="btn btn-outline-dark w-100 shadow-none col-md-6 mb-3">
+                              <input type="hidden" value="{{ $pesanan->id }}" name="produk_id" class="btn btn-outline-dark w-100 shadow-none col-md-6 mb-3">
                               <div class="rating my-2">
                                   <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
                                   <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>

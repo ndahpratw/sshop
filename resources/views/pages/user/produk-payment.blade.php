@@ -68,16 +68,18 @@
             @if (empty(auth()->user()))
                 <li> <a class="btn-getstarted scrollto" href="/login">Get Started</a> </li>
             @else
-                <li>            
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#cancel-payment">
-                        <i class="bi bi-cart-fill"></i>
-                    </a>
-                </li>
-                <li>
-                    <a class="btn-getstarted" data-bs-toggle="modal" data-bs-target="#cancel-payment" href="/profile">
+                <li class="dropdown">
+                    <a class="btn-getstarted" href="">
                         {{auth()->user()->name}}
+                        <i class="bi bi-chevron-down dropdown-indicator"></i>
                         {{-- <img src="{{ asset('assets/img/icon.jpg') }}" style="border-radius: 50%; width:25px; margin-right: 10px"> Keluar --}}
                     </a>
+                    <ul>
+                    <li><a data-bs-toggle="modal" data-bs-target="#cancel-payment" href="/profile">Akun Saya</a></li>
+                    <li><a data-bs-toggle="modal" data-bs-target="#cancel-payment" href="/pesanan">Pesanan Saya</a></li>
+                    <li><a data-bs-toggle="modal" data-bs-target="#cancel-payment" href="/rating-sistem">Kritik dan Saran</a></li>
+                    <li><a data-bs-toggle="modal" data-bs-target="#cancel-payment" href="/logout">Logout</a></li>
+                    </ul>
                 </li>
             @endif
   

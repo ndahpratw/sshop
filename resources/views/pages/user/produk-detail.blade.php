@@ -67,16 +67,19 @@
             @if (empty(auth()->user()))
                 <li> <a class="btn-getstarted scrollto" href="/login">Get Started</a> </li>
             @else
-                <li>            
-                    <a href="#">
-                        <i class="bi bi-cart-fill"></i>
-                    </a>
-                </li>
-                <li>
-                    <a class="btn-getstarted" href="/profile">
+                <li class="dropdown">
+                    <a class="btn-getstarted" href="">
                         {{auth()->user()->name}}
+
+                        <i class="bi bi-chevron-down dropdown-indicator"></i>
                         {{-- <img src="{{ asset('assets/img/icon.jpg') }}" style="border-radius: 50%; width:25px; margin-right: 10px"> Keluar --}}
                     </a>
+                    <ul>
+                    <li><a href="/profile">Akun Saya</a></li>
+                    <li><a href="/pesanan">Pesanan Saya</a></li>
+                    <li><a href="/rating-sistem">Kritik dan Saran</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    </ul>
                 </li>
             @endif
   

@@ -181,7 +181,7 @@ class UserController extends Controller
 
     // PESANAN
     public function view_pesanan() {
-        $semua_pesanan = Pembelian::where('user_id', auth()->user()->id)->orderby('created_at')->get();
+        $semua_pesanan = Pembelian::with('ratingProduk')->where('user_id', auth()->user()->id)->orderby('created_at')->get();
         $belum_bayar = Pembelian::where('user_id', auth()->user()->id)->where('status_pesanan', 'menunggu pembayaran')->orderby('created_at')->get();
         $dikemas = Pembelian::where('user_id', auth()->user()->id)->where('status_pesanan', 'dikemas')->orderby('created_at')->get();
         $dikirim = Pembelian::where('user_id', auth()->user()->id)->where('status_pesanan', 'dikirim')->orderby('created_at')->get();
