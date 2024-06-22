@@ -36,11 +36,12 @@
     justify-content: center;
     }
 
-    .rating > input{ display:none;}
-
+    .rating > input{ 
+      display:none;
+    } 
     .rating > label {
         width: 1em;
-        font-size: 2vw;
+        font-size: 3vw;
         color: #FFD600;
         cursor: pointer;
     }
@@ -59,6 +60,12 @@
     }
 
     .rating:hover > input:checked ~ label:before{ opacity: 0.4; }
+
+    @media only screen and (max-width: 600px) {
+      .rating > label {
+          font-size: 10vw; 
+      }
+    }
   </style>
 
   <!-- =======================================================

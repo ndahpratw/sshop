@@ -193,11 +193,13 @@
                               <div class="d-flex justify-content-between align-item-center">
                                 <p style="color: #254336">{{ $item->produk->brand->nama_pabrik }}</p>
                                 @if ($item->status_pembayaran == 'belum bayar')
-                                  <p style="color: red">{{ $item->status_pesanan }}</p>
+                                  <p class="text-danger">{{ $item->status_pesanan }}</p>
                                 @elseif($item->status_pembayaran == 'sudah bayar' && $item->status_pesanan == 'menunggu pembayaran')
-                                  <p style="color: red">menunggu konfirmasi</p>
+                                  <p class="text-danger">menunggu konfirmasi</p>
+                                @elseif ($item->status_pesanan == 'selesai')
+                                  <p class="text-success">{{ $item->status_pesanan }}</p>
                                 @else
-                                  <p style="color: red">{{ $item->status_pesanan }}</p>
+                                  <p class="text-danger">{{ $item->status_pesanan }}</p>
                                 @endif
                               </div>
 
@@ -285,7 +287,7 @@
                             <div class="card-body my-4">
                               <div class="d-flex justify-content-between align-item-center">
                                 <p style="color: #254336">{{ $item->produk->brand->nama_pabrik }}</p>
-                                <p style="color: red">{{ $item->status_pesanan }}</p>
+                                <p class="text-danger">{{ $item->status_pesanan }}</p>
                               </div>
 
                               <div class="row">
@@ -358,7 +360,7 @@
                             <div class="card-body my-4">
                               <div class="d-flex justify-content-between align-item-center">
                                 <p style="color: #254336">{{ $item->produk->brand->nama_pabrik }}</p>
-                                <p style="color: red">{{ $item->status_pesanan }}</p>
+                                <p class="text-danger">{{ $item->status_pesanan }}</p>
                               </div>
 
                               <div class="row">
@@ -408,7 +410,7 @@
                             <div class="card-body my-4">
                               <div class="d-flex justify-content-between align-item-center">
                                 <p style="color: #254336">{{ $item->produk->brand->nama_pabrik }}</p>
-                                <p style="color: red">{{ $item->status_pesanan }}</p>
+                                <p class="text-danger">{{ $item->status_pesanan }}</p>
                               </div>
 
                               <div class="row">
@@ -463,7 +465,7 @@
                             <div class="card-body my-4">
                               <div class="d-flex justify-content-between align-item-center">
                                 <p style="color: #254336">{{ $item->produk->brand->nama_pabrik }}</p>
-                                <p style="color: red">{{ $item->status_pesanan }}</p>
+                                <p class="text-success">{{ $item->status_pesanan }}</p>
                               </div>
 
                               <div class="row">
@@ -518,7 +520,7 @@
                             <div class="card-body my-4">
                               <div class="d-flex justify-content-between align-item-center">
                                 <p style="color: #254336">{{ $item->produk->brand->nama_pabrik }}</p>
-                                <p style="color: red">{{ $item->status_pesanan }}</p>
+                                <p class="text-danger">{{ $item->status_pesanan }}</p>
                               </div>
 
                               <div class="row">

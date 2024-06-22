@@ -69,7 +69,7 @@
               <li> <a class="btn-getstarted scrollto" href="/login">Get Started</a> </li>
           @else
               <li class="dropdown">
-                  <a class="btn-getstarted" href="">
+                  <a class="btn-getstarted" href="#">
                       {{auth()->user()->name}}
 
                       <i class="bi bi-chevron-down dropdown-indicator"></i>
@@ -105,7 +105,9 @@
             <div class="col-lg-9 text-center">
               <h2>{{ $carousel->title }}</h2>
               <p> {{ $carousel->deskripsi }} </p>
-              <a href="/login" class="btn-get-started scrollto ">Get Started</a>
+              @guest
+                <a href="/login" class="btn-get-started scrollto ">Get Started</a>
+              @endguest
             </div>
 
           </div>
@@ -124,7 +126,9 @@
             <div class="col-lg-9 text-center">
               <h2>{{ $item->title }}</h2>
               <p> {{ $item->deskripsi }} </p>
-              <a href="/login" class="btn-get-started scrollto ">Get Started</a>
+              @guest
+                <a href="/login" class="btn-get-started scrollto ">Get Started</a>
+              @endguest
             </div>
 
           </div>
